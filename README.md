@@ -18,18 +18,18 @@ git clone https://github.com/RenanLima7/com.ufc.web
 ```bash
 cd com.ufc.web
 ```
- **DICAS**
+ 
+- 3 Subir o servidor web
+
+```bash
+   Start o arquivo Apllication.java 
+ ```
+ 
+ ![](https://github.com/RenanLima7/com.ufc.web/tree/master/src/test/java/com/ufc/web/requests)
+
+**DICAS**
   - 
 
-![](\src\main\java\com\ufc\web\Apllication.java)
-
 <hr>
-
-- 4 Subir o servidor web
-
-
-start o arquivo Apllication.java 
-
-
 
 Por fim acesse o endereço `localhost:8080/home` onde o projeto está rodando
