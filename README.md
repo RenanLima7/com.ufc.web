@@ -1,6 +1,6 @@
 # SPA - Rest com Spring Boot & AJAX ☕
 
-##O que significa Single Page Application?
+## O que significa Single Page Application?
 Single page application quer dizer que o browser vai renderizar o core da aplicação apenas uma vez.
 todas as outras informações serão carregadas por demanda, de acordo com a necessidade do usuário.
 O objetivo de fornecer uma experiência do usuário similar à de um aplicativo desktop.
@@ -22,14 +22,16 @@ cd com.ufc.web
 - 3 Subir o servidor web
 
 ```bash
-   Start o arquivo Apllication.java 
+   Start o arquivo Apllication.java
  ```
- 
- ![](https://github.com/RenanLima7/com.ufc.web/tree/master/src/test/java/com/ufc/web/requests)
 
-**DICAS**
-  - 
+Por fim acesse o endereço `localhost:8080/` onde o projeto está rodando 
+  
+**DICAS** 💡
+
+- No link abaixo está as collection com todas as requisições que serão utilizadas, basta importalas em uma ferramenta cliente de API REST.
+- [Postman](https://www.postman.com/), [Insomnia](https://insomnia.rest/), etc.
 
 <hr>
-
-Por fim acesse o endereço `localhost:8080/home` onde o projeto está rodando
+[Requisições](https://github.com/RenanLima7/com.ufc.web/tree/master/src/test/java/com/ufc/web/requests/)
+<hr>
