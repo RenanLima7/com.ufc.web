@@ -2,11 +2,18 @@ package com.ufc.web.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Turma {
+	@Id
+    	@GeneratedValue
 	private int codigo;
-    private String disciplina;
-    private int semestre;
-    private List<Aluno> alunos;
+	private String disciplina;
+	private int semestre;
+    	private List<Aluno> alunos;
     
 	public Turma(int codigo, String disciplina, int semestre, List<Aluno> alunos) {
 		super();
