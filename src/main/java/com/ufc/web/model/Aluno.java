@@ -1,11 +1,18 @@
 package com.ufc.web.model;
 
-public class Aluno {
-	private int matricula;
-    private String nome;
-    private String email;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-    public Aluno(int matricula, String nome, String email) {
+@Entity
+public class Aluno {
+	@Id
+    	@GeneratedValue
+	private int matricula;
+	private String nome;
+    	private String email;
+
+	public Aluno(int matricula, String nome, String email) {
 		super();
 		this.matricula = matricula;
 		this.nome = nome;
