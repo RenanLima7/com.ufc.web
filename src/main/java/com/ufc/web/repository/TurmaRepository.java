@@ -1,7 +1,8 @@
 package com.ufc.web.repository;
 
 import org.springframework.data.repository.CrudRepository;
+import com.ufc.web.model.Turma;
 
-public interface TurmaRepository extends CrudRepository<User, Integer> {
+public interface TurmaRepository extends CrudRepository<Turma, Integer> {
 
 }
