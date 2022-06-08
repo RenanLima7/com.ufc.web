@@ -1,42 +1,42 @@
 package com.ufc.web.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
+
 import com.ufc.web.model.*;
+import com.ufc.web.repository.*;
 
 @Service
 public class AlunoService {
-    private List<Aluno> alunos = new ArrayList<Aluno>();
-        
-    public AlunoService() {
-        alunos.addAll(Arrays.asList(new Aluno(1, "Renan", "renan@mail"), new Aluno(1, "Maria", "maria@mail")));
-    }
-    
-    public List<Aluno> getAlunos() {
-        return alunos;
-    }
 
-    public void addAluno(Aluno aluno) {
-        alunos.add(aluno);
+    @Autowired
+	AlunoRepository alunoRepository;
+        
+    @GetMapping
+    public Iterable<Aluno> getAlunos(){
+        return alunoRepository.findAll();
     }
-    
+   
+    @PostMapping
+    public Aluno addAluno(@RequestBody Aluno aluno) {
+        return alunoRepository.save(aluno);
+    }
+       
     public Aluno getAlunoByMatricula(int matricula) {
-        return alunos.stream().filter(a -> a.getMatricula() == matricula).findFirst().get();
-    } 
+        return alunoRepository.getAlunoByMatricula(matricula); // Verificar
+    }    
     
     public Aluno updateAluno(int matricula, Aluno aluno) {
-    	Aluno oldAluno = alunos.stream().filter(a -> a.getMatricula() == matricula).findFirst().get();
-    	oldAluno.setMatricula(aluno.getMatricula());
-    	oldAluno.setNome(aluno.getNome());
-    	oldAluno.setEmail(aluno.getEmail());
+    	//Aluno oldAluno = alunoRepository.
+    	//oldAluno.setMatricula(aluno.getMatricula());
+    	///oldAluno.setNome(aluno.getNome());
+    	//oldAluno.setEmail(aluno.getEmail());
     	
     	return aluno;
     } 
     
-    public Boolean deleteAluno(int matricula) {
-    	return alunos.remove(alunos.stream().filter(a -> a.getMatricula() == matricula).findFirst().get());
+    public Boolean deleteAlunoByMatricula(int matricula) {
+    	return alunoRepository.deleteAlunoByMatricula(matricula);
     } 
 }

@@ -17,7 +17,7 @@ public class TurmaController {
 	TurmaService turmaService;
 	
 	@GetMapping("/api/turma")
-	public List<Turma> getTurmas() {
+	public Iterable<Turma> getTurmas() {
 		return turmaService.getTurmas();
 	}
 
@@ -37,8 +37,8 @@ public class TurmaController {
     }
    
     @DeleteMapping("/api/turma/{code}")
-    public void deleteTurma(@PathVariable int code){
-        if (!turmaService.deleteTurma(code)) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    public void deleteTurmaByCode(@PathVariable int code){
+        if (!turmaService.deleteTurmaByCode(code)) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     } 
 
 	@GetMapping("/api/turma/{code}/alunos")

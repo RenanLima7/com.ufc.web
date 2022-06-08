@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Turma {
@@ -13,15 +14,9 @@ public class Turma {
 	private int codigo;
 	private String disciplina;
 	private int semestre;
-	private List<Aluno> alunos;
 
-	public Turma(int codigo, String disciplina, int semestre, List<Aluno> alunos) {
-		super();
-		this.codigo = codigo;
-		this.disciplina = disciplina;
-		this.semestre = semestre;
-		this.alunos = alunos;
-	}
+	@OneToMany
+	private List<Aluno> alunos;
 
 	public int getCodigo() {
 		return codigo;

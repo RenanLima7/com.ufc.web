@@ -1,7 +1,5 @@
 package com.ufc.web.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +14,7 @@ public class AlunoController {
 	AlunoService alunoService;
      
 	@GetMapping("/api/aluno")
-	public List<Aluno> getAlunos() {
+	public Iterable<Aluno> getAlunos() {
 		return alunoService.getAlunos();
 	}
 
@@ -27,7 +25,7 @@ public class AlunoController {
 
 	@GetMapping("/api/aluno/{matricula}")
 	public Aluno getAlunoByMatricula(@PathVariable int matricula) {
-		return alunoService.getAlunoByMatricula(matricula);
+		return alunoService.getAlunoByMatricula(matricula); // Ver se está funcionando > Id
 	}
    
     @PutMapping("/api/aluno/{matricula}")
@@ -36,7 +34,7 @@ public class AlunoController {
     }
    
     @DeleteMapping("/api/aluno/{matricula}")
-    public void deleteAluno(@PathVariable int matricula){
-        if (!alunoService.deleteAluno(matricula)) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    public void deleteAlunoByMatricula(@PathVariable int matricula){
+        if (!alunoService.deleteAlunoByMatricula(matricula)) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 }

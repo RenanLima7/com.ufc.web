@@ -1,72 +1,75 @@
 package com.ufc.web.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufc.web.model.*;
+import com.ufc.web.repository.*;
 
 @Service
 public class TurmaService {
     
-    private List<Turma> turmas = new ArrayList<Turma>();
-    
-    public TurmaService() {
-        List<Aluno> listAlunos = new ArrayList<Aluno>();
-        listAlunos.addAll(Arrays.asList(new Aluno(1, "Renan", "renan@mail"), new Aluno(2, "Maria", "maria@mail")));
+    @Autowired 
+    TurmaRepository turmaRepository;
 
-        turmas.addAll(
-            Arrays.asList( // listAlunos Is Mock
-                new Turma(1, "Web", 5, listAlunos),
-                new Turma(2, "ES", 5, listAlunos)
-            )
-        );
-    }
-    
-    public List<Turma> getTurmas() {
-        return turmas;
+    @Autowired 
+    AlunoRepository alunoRepository;
+
+    public Iterable<Turma> getTurmas() {
+        return turmaRepository.findAll();
     }
 
     public void addTurma(Turma turma) {
-        turmas.add(turma);
+        turmaRepository.save(turma);
     }
     
     public Turma getTurmaByCode(int codigo) {
-        return turmas.stream().filter(t -> t.getCodigo() == codigo).findFirst().get();
+        return turmaRepository.getTurmaByCode(codigo); // Verificar
     } 
     
     public Turma updateTurma(int codigo, Turma turma) {
-    	Turma oldTurma = turmas.stream().filter(t -> t.getCodigo() == codigo).findFirst().get();
-    	oldTurma.setDisciplina(turma.getDisciplina());
-    	oldTurma.setSemestre(turma.getSemestre());
-    	oldTurma.setAlunos(turma.getAlunos());
+    	//Turma oldTurma = turmas.stream().filter(t -> t.getCodigo() == codigo).findFirst().get();
+    	//oldTurma.setDisciplina(turma.getDisciplina());
+    	//oldTurma.setSemestre(turma.getSemestre());
+    	//oldTurma.setAlunos(turma.getAlunos());
     	
     	return turma;
     } 
     
-    public Boolean deleteTurma(int codigo) {
-    	return turmas.remove(turmas.stream().filter(t -> t.getCodigo() == codigo).findFirst().get());
+    public Boolean deleteTurmaByCode(int codigo) {
+    	return turmaRepository.deleteTurmaByCode(codigo);
     }
     
     public List<Aluno> getAlunosByTurma(int codigo) {
-        return turmas.stream().filter(t -> t.getCodigo() == codigo).findFirst().get().getAlunos();
+        Turma turma = turmaRepository.getTurmaByCode(codigo);
+        return turma.getAlunos();
     } 
 
-    public List<Aluno> addAlunoInTurma(int codigo, Aluno aluno) {
-        Turma turma = getTurmaByCode(codigo);
-    	List<Aluno> alunosInTurma = turma.getAlunos();
-
+    public List<Aluno> addAlunoInTurma(int codigo, Aluno aluno) {  // Verificar
+        Turma turma = turmaRepository.getTurmaByCode(codigo);   
+        List<Aluno> alunosInTurma = turma.getAlunos();
     	alunosInTurma.add(aluno);
+        turma.setAlunos(alunosInTurma); // turma . save
+
+        aluno.setTurma(turma);
+        alunoRepository.save(aluno);
     	
     	return  alunosInTurma;
     }    
 
     public Boolean deleteAlunoInTurma(int codigo, int matricula) {
-        Turma turma = getTurmaByCode(codigo);
+        Turma turma = turmaRepository.getTurmaByCode(codigo);
     	List<Aluno> alunosInTurma = turma.getAlunos();
+        Aluno aluno = alunoRepository.getAlunoByMatricula(matricula);
     	
+        alunosInTurma.remove(aluno); // verificar
+        turma.setAlunos(alunosInTurma); // verificar
+
+        aluno.setTurma(null);
+        //alunoRepository.updateAluno(codigo, turma);
+
     	return alunosInTurma.remove(alunosInTurma.stream().filter(a -> a.getMatricula() == matricula).findFirst().get());
     } 
 }
